@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="theme-color" content="#1a1410">
-<title>The Beacon — A Brackenholm Tale</title>
+<title>Alebrije Journey — A Brackenholm Tale</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;900&family=Crimson+Text:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
@@ -29,8 +29,15 @@
   .hidden{display:none!important;}
 
   /* ---------- Title ---------- */
-  #title h1{font-family:'Cinzel',serif;font-weight:900;font-size:clamp(38px,12vw,86px);letter-spacing:.06em;
-    color:var(--gold-bright);text-shadow:0 2px 0 var(--gold-deep),0 0 40px rgba(217,178,90,.35);line-height:.95;}
+  #titleArt{width:min(300px,64vw);margin:0 auto 6px;filter:drop-shadow(0 6px 26px rgba(255,120,40,.35));}
+  #titleArt svg{width:100%;height:auto;display:block;}
+  @keyframes aleSpin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
+  #titleArt .aleRing{transform-origin:130px 122px;animation:aleSpin 46s linear infinite;}
+  #titleArt .aleRing2{transform-origin:130px 122px;animation:aleSpin 64s linear infinite reverse;}
+  #title h1{font-family:'Cinzel',serif;font-weight:900;font-size:clamp(32px,10.5vw,74px);letter-spacing:.06em;
+    background:linear-gradient(92deg,#ff2d95 0%,#ff6d00 24%,#ffea00 44%,#76ff03 62%,#00e5ff 80%,#9b30ff 100%);
+    -webkit-background-clip:text;background-clip:text;color:transparent;-webkit-text-fill-color:transparent;
+    text-shadow:0 0 44px rgba(255,140,40,.30);line-height:.98;}
   #title .sub{font-style:italic;font-size:clamp(15px,4.5vw,22px);color:var(--parch-dim);margin-top:10px;letter-spacing:.12em;}
   #title .flavor{max-width:520px;margin:22px auto 6px;font-size:clamp(14px,4vw,17px);color:#bfae86;line-height:1.5;font-style:italic;opacity:.92;}
   .btn-row{display:flex;flex-direction:column;gap:14px;margin-top:30px;width:min(320px,80vw);}
@@ -277,7 +284,8 @@
 
   <!-- Title -->
   <div id="title" class="overlay">
-    <h1>THE&nbsp;BEACON</h1>
+    <div id="titleArt"><svg viewBox="0 0 260 250" xmlns="http://www.w3.org/2000/svg"><defs><radialGradient id="ag" cx="50%" cy="46%" r="62%"><stop offset="0%" stop-color="#ffd75e"/><stop offset="55%" stop-color="#f08a2a"/><stop offset="100%" stop-color="#7a1f6a"/></radialGradient></defs><circle cx="130" cy="122" r="120" fill="#10243a"/><g class="aleRing"><line x1="234" y1="122" x2="248" y2="122" stroke="#ff2d95" stroke-width="4.4" stroke-linecap="round"/><line x1="233.4" y1="132.9" x2="247.4" y2="134.3" stroke="#ff6d00" stroke-width="4.4" stroke-linecap="round"/><line x1="231.7" y1="143.6" x2="245.4" y2="146.5" stroke="#ffea00" stroke-width="4.4" stroke-linecap="round"/><line x1="228.9" y1="154.1" x2="242.2" y2="158.5" stroke="#76ff03" stroke-width="4.4" stroke-linecap="round"/><line x1="225" y1="164.3" x2="237.8" y2="170" stroke="#00e5ff" stroke-width="4.4" stroke-linecap="round"/><line x1="220.1" y1="174" x2="232.2" y2="181" stroke="#9b30ff" stroke-width="4.4" stroke-linecap="round"/><line x1="214.1" y1="183.1" x2="225.5" y2="191.4" stroke="#ff1744" stroke-width="4.4" stroke-linecap="round"/><line x1="207.3" y1="191.6" x2="217.7" y2="201" stroke="#18ffb0" stroke-width="4.4" stroke-linecap="round"/><line x1="199.6" y1="199.3" x2="209" y2="209.7" stroke="#ff2d95" stroke-width="4.4" stroke-linecap="round"/><line x1="191.1" y1="206.1" x2="199.4" y2="217.5" stroke="#ff6d00" stroke-width="4.4" stroke-linecap="round"/><line x1="182" y1="212.1" x2="189" y2="224.2" stroke="#ffea00" stroke-width="4.4" stroke-linecap="round"/><line x1="172.3" y1="217" x2="178" y2="229.8" stroke="#76ff03" stroke-width="4.4" stroke-linecap="round"/><line x1="162.1" y1="220.9" x2="166.5" y2="234.2" stroke="#00e5ff" stroke-width="4.4" stroke-linecap="round"/><line x1="151.6" y1="223.7" x2="154.5" y2="237.4" stroke="#9b30ff" stroke-width="4.4" stroke-linecap="round"/><line x1="140.9" y1="225.4" x2="142.3" y2="239.4" stroke="#ff1744" stroke-width="4.4" stroke-linecap="round"/><line x1="130" y1="226" x2="130" y2="240" stroke="#18ffb0" stroke-width="4.4" stroke-linecap="round"/><line x1="119.1" y1="225.4" x2="117.7" y2="239.4" stroke="#ff2d95" stroke-width="4.4" stroke-linecap="round"/><line x1="108.4" y1="223.7" x2="105.5" y2="237.4" stroke="#ff6d00" stroke-width="4.4" stroke-linecap="round"/><line x1="97.9" y1="220.9" x2="93.5" y2="234.2" stroke="#ffea00" stroke-width="4.4" stroke-linecap="round"/><line x1="87.7" y1="217" x2="82" y2="229.8" stroke="#76ff03" stroke-width="4.4" stroke-linecap="round"/><line x1="78" y1="212.1" x2="71" y2="224.2" stroke="#00e5ff" stroke-width="4.4" stroke-linecap="round"/><line x1="68.9" y1="206.1" x2="60.6" y2="217.5" stroke="#9b30ff" stroke-width="4.4" stroke-linecap="round"/><line x1="60.4" y1="199.3" x2="51" y2="209.7" stroke="#ff1744" stroke-width="4.4" stroke-linecap="round"/><line x1="52.7" y1="191.6" x2="42.3" y2="201" stroke="#18ffb0" stroke-width="4.4" stroke-linecap="round"/><line x1="45.9" y1="183.1" x2="34.5" y2="191.4" stroke="#ff2d95" stroke-width="4.4" stroke-linecap="round"/><line x1="39.9" y1="174" x2="27.8" y2="181" stroke="#ff6d00" stroke-width="4.4" stroke-linecap="round"/><line x1="35" y1="164.3" x2="22.2" y2="170" stroke="#ffea00" stroke-width="4.4" stroke-linecap="round"/><line x1="31.1" y1="154.1" x2="17.8" y2="158.5" stroke="#76ff03" stroke-width="4.4" stroke-linecap="round"/><line x1="28.3" y1="143.6" x2="14.6" y2="146.5" stroke="#00e5ff" stroke-width="4.4" stroke-linecap="round"/><line x1="26.6" y1="132.9" x2="12.6" y2="134.3" stroke="#9b30ff" stroke-width="4.4" stroke-linecap="round"/><line x1="26" y1="122" x2="12" y2="122" stroke="#ff1744" stroke-width="4.4" stroke-linecap="round"/><line x1="26.6" y1="111.1" x2="12.6" y2="109.7" stroke="#18ffb0" stroke-width="4.4" stroke-linecap="round"/><line x1="28.3" y1="100.4" x2="14.6" y2="97.5" stroke="#ff2d95" stroke-width="4.4" stroke-linecap="round"/><line x1="31.1" y1="89.9" x2="17.8" y2="85.5" stroke="#ff6d00" stroke-width="4.4" stroke-linecap="round"/><line x1="35" y1="79.7" x2="22.2" y2="74" stroke="#ffea00" stroke-width="4.4" stroke-linecap="round"/><line x1="39.9" y1="70" x2="27.8" y2="63" stroke="#76ff03" stroke-width="4.4" stroke-linecap="round"/><line x1="45.9" y1="60.9" x2="34.5" y2="52.6" stroke="#00e5ff" stroke-width="4.4" stroke-linecap="round"/><line x1="52.7" y1="52.4" x2="42.3" y2="43" stroke="#9b30ff" stroke-width="4.4" stroke-linecap="round"/><line x1="60.4" y1="44.7" x2="51" y2="34.3" stroke="#ff1744" stroke-width="4.4" stroke-linecap="round"/><line x1="68.9" y1="37.9" x2="60.6" y2="26.5" stroke="#18ffb0" stroke-width="4.4" stroke-linecap="round"/><line x1="78" y1="31.9" x2="71" y2="19.8" stroke="#ff2d95" stroke-width="4.4" stroke-linecap="round"/><line x1="87.7" y1="27" x2="82" y2="14.2" stroke="#ff6d00" stroke-width="4.4" stroke-linecap="round"/><line x1="97.9" y1="23.1" x2="93.5" y2="9.8" stroke="#ffea00" stroke-width="4.4" stroke-linecap="round"/><line x1="108.4" y1="20.3" x2="105.5" y2="6.6" stroke="#76ff03" stroke-width="4.4" stroke-linecap="round"/><line x1="119.1" y1="18.6" x2="117.7" y2="4.6" stroke="#00e5ff" stroke-width="4.4" stroke-linecap="round"/><line x1="130" y1="18" x2="130" y2="4" stroke="#9b30ff" stroke-width="4.4" stroke-linecap="round"/><line x1="140.9" y1="18.6" x2="142.3" y2="4.6" stroke="#ff1744" stroke-width="4.4" stroke-linecap="round"/><line x1="151.6" y1="20.3" x2="154.5" y2="6.6" stroke="#18ffb0" stroke-width="4.4" stroke-linecap="round"/><line x1="162.1" y1="23.1" x2="166.5" y2="9.8" stroke="#ff2d95" stroke-width="4.4" stroke-linecap="round"/><line x1="172.3" y1="27" x2="178" y2="14.2" stroke="#ff6d00" stroke-width="4.4" stroke-linecap="round"/><line x1="182" y1="31.9" x2="189" y2="19.8" stroke="#ffea00" stroke-width="4.4" stroke-linecap="round"/><line x1="191.1" y1="37.9" x2="199.4" y2="26.5" stroke="#76ff03" stroke-width="4.4" stroke-linecap="round"/><line x1="199.6" y1="44.7" x2="209" y2="34.3" stroke="#00e5ff" stroke-width="4.4" stroke-linecap="round"/><line x1="207.3" y1="52.4" x2="217.7" y2="43" stroke="#9b30ff" stroke-width="4.4" stroke-linecap="round"/><line x1="214.1" y1="60.9" x2="225.5" y2="52.6" stroke="#ff1744" stroke-width="4.4" stroke-linecap="round"/><line x1="220.1" y1="70" x2="232.2" y2="63" stroke="#18ffb0" stroke-width="4.4" stroke-linecap="round"/><line x1="225" y1="79.7" x2="237.8" y2="74" stroke="#ff2d95" stroke-width="4.4" stroke-linecap="round"/><line x1="228.9" y1="89.9" x2="242.2" y2="85.5" stroke="#ff6d00" stroke-width="4.4" stroke-linecap="round"/><line x1="231.7" y1="100.4" x2="245.4" y2="97.5" stroke="#ffea00" stroke-width="4.4" stroke-linecap="round"/><line x1="233.4" y1="111.1" x2="247.4" y2="109.7" stroke="#76ff03" stroke-width="4.4" stroke-linecap="round"/></g><g class="aleRing2"><circle cx="226" cy="122" r="3.1" fill="#76ff03"/><circle cx="224.5" cy="138.7" r="3.1" fill="#00e5ff"/><circle cx="220.2" cy="154.8" r="3.1" fill="#9b30ff"/><circle cx="213.1" cy="170" r="3.1" fill="#ff1744"/><circle cx="203.5" cy="183.7" r="3.1" fill="#18ffb0"/><circle cx="191.7" cy="195.5" r="3.1" fill="#ff2d95"/><circle cx="178" cy="205.1" r="3.1" fill="#ff6d00"/><circle cx="162.8" cy="212.2" r="3.1" fill="#ffea00"/><circle cx="146.7" cy="216.5" r="3.1" fill="#76ff03"/><circle cx="130" cy="218" r="3.1" fill="#00e5ff"/><circle cx="113.3" cy="216.5" r="3.1" fill="#9b30ff"/><circle cx="97.2" cy="212.2" r="3.1" fill="#ff1744"/><circle cx="82" cy="205.1" r="3.1" fill="#18ffb0"/><circle cx="68.3" cy="195.5" r="3.1" fill="#ff2d95"/><circle cx="56.5" cy="183.7" r="3.1" fill="#ff6d00"/><circle cx="46.9" cy="170" r="3.1" fill="#ffea00"/><circle cx="39.8" cy="154.8" r="3.1" fill="#76ff03"/><circle cx="35.5" cy="138.7" r="3.1" fill="#00e5ff"/><circle cx="34" cy="122" r="3.1" fill="#9b30ff"/><circle cx="35.5" cy="105.3" r="3.1" fill="#ff1744"/><circle cx="39.8" cy="89.2" r="3.1" fill="#18ffb0"/><circle cx="46.9" cy="74" r="3.1" fill="#ff2d95"/><circle cx="56.5" cy="60.3" r="3.1" fill="#ff6d00"/><circle cx="68.3" cy="48.5" r="3.1" fill="#ffea00"/><circle cx="82" cy="38.9" r="3.1" fill="#76ff03"/><circle cx="97.2" cy="31.8" r="3.1" fill="#00e5ff"/><circle cx="113.3" cy="27.5" r="3.1" fill="#9b30ff"/><circle cx="130" cy="26" r="3.1" fill="#ff1744"/><circle cx="146.7" cy="27.5" r="3.1" fill="#18ffb0"/><circle cx="162.8" cy="31.8" r="3.1" fill="#ff2d95"/><circle cx="178" cy="38.9" r="3.1" fill="#ff6d00"/><circle cx="191.7" cy="48.5" r="3.1" fill="#ffea00"/><circle cx="203.5" cy="60.3" r="3.1" fill="#76ff03"/><circle cx="213.1" cy="74" r="3.1" fill="#00e5ff"/><circle cx="220.2" cy="89.2" r="3.1" fill="#9b30ff"/><circle cx="224.5" cy="105.3" r="3.1" fill="#ff1744"/></g><path d="M130,95.5L130.1,94.5L130.6,91.5L132.1,86.9L134.8,81.1L138.9,75L144.5,69L151.7,64L160,60.5L169.2,58.9L178.7,59.4L188.2,62.2L196.9,67.1L204.3,73.8L210,81.9L213.6,91.1L214.8,100.8L213.6,110.7L210,120.6L204.3,130.2L196.9,139.4L188.2,148.3L178.7,156.8L169.2,165L160,172.9L151.7,180.5L144.5,187.7L138.9,194.4L134.8,200.3L132.1,205.3L130.6,209L130.1,211.3L130,212.1L129.9,211.3L129.4,209L127.9,205.3L125.2,200.3L121.1,194.4L115.5,187.7L108.3,180.5L100,172.9L90.8,165L81.3,156.8L71.8,148.3L63.1,139.4L55.7,130.2L50,120.6L46.4,110.7L45.2,100.8L46.4,91.1L50,81.9L55.7,73.8L63.1,67.1L71.8,62.2L81.3,59.4L90.8,58.9L100,60.5L108.3,64L115.5,69L121.1,75L125.2,81.1L127.9,86.9L129.4,91.5L129.9,94.5L130,95.5Z" fill="none" stroke="#1f6ad0" stroke-width="7" stroke-linejoin="round"/><path d="M130,97.2L130.1,96.3L130.6,93.5L131.9,89.2L134.4,83.8L138.3,78.1L143.6,72.5L150.2,67.8L158,64.5L166.6,63L175.5,63.6L184.3,66.2L192.5,70.7L199.4,77L204.7,84.6L208.1,93.1L209.2,102.2L208.1,111.5L204.7,120.7L199.4,129.6L192.5,138.3L184.3,146.5L175.5,154.5L166.6,162.2L158,169.6L150.2,176.7L143.6,183.4L138.3,189.6L134.4,195.2L131.9,199.8L130.6,203.2L130.1,205.4L130,206.2L129.9,205.4L129.4,203.2L128.1,199.8L125.6,195.2L121.7,189.6L116.4,183.4L109.8,176.7L102,169.6L93.4,162.2L84.5,154.5L75.7,146.5L67.5,138.3L60.6,129.6L55.3,120.7L51.9,111.5L50.8,102.2L51.9,93.1L55.3,84.6L60.6,77L67.5,70.7L75.7,66.2L84.5,63.6L93.4,63L102,64.5L109.8,67.8L116.4,72.5L121.7,78.1L125.6,83.8L128.1,89.2L129.4,93.5L129.9,96.3L130,97.2Z" fill="none" stroke="#9b30ff" stroke-width="6" stroke-linejoin="round"/><path d="M130,98.9L130.1,98L130.5,95.4L131.8,91.4L134.1,86.4L137.7,81L142.7,75.8L148.9,71.5L156.1,68.4L164.1,67L172.5,67.5L180.7,69.9L188.3,74.1L194.8,80L199.7,87.1L202.9,95L203.9,103.5L202.9,112.2L199.7,120.8L194.8,129.1L188.3,137.2L180.7,144.9L172.5,152.3L164.1,159.5L156.1,166.4L148.9,173L142.7,179.3L137.7,185.1L134.1,190.3L131.8,194.6L130.5,197.8L130.1,199.9L130,200.5L129.9,199.9L129.5,197.8L128.2,194.6L125.9,190.3L122.3,185.1L117.3,179.3L111.1,173L103.9,166.4L95.9,159.5L87.5,152.3L79.3,144.9L71.7,137.2L65.2,129.1L60.3,120.8L57.1,112.2L56.1,103.5L57.1,95L60.3,87.1L65.2,80L71.7,74.1L79.3,69.9L87.5,67.5L95.9,67L103.9,68.4L111.1,71.5L117.3,75.8L122.3,81L125.9,86.4L128.2,91.4L129.5,95.4L129.9,98L130,98.9Z" fill="none" stroke="#ff2d95" stroke-width="5.4" stroke-linejoin="round"/><path d="M130,100.5L130.1,99.7L130.5,97.2L131.7,93.5L133.9,88.8L137.2,83.8L141.8,79L147.6,75L154.3,72.1L161.8,70.8L169.5,71.2L177.2,73.5L184.3,77.5L190.3,82.9L194.9,89.5L197.8,96.9L198.8,104.8L197.8,112.9L194.9,120.9L190.3,128.6L184.3,136.1L177.2,143.3L169.5,150.2L161.8,156.9L154.3,163.3L147.6,169.5L141.8,175.3L137.2,180.8L133.9,185.6L131.7,189.6L130.5,192.6L130.1,194.5L130,195.1L129.9,194.5L129.5,192.6L128.3,189.6L126.1,185.6L122.8,180.8L118.2,175.3L112.4,169.5L105.7,163.3L98.2,156.9L90.5,150.2L82.8,143.3L75.7,136.1L69.7,128.6L65.1,120.9L62.2,112.9L61.2,104.8L62.2,96.9L65.1,89.5L69.7,82.9L75.7,77.5L82.8,73.5L90.5,71.2L98.2,70.8L105.7,72.1L112.4,75L118.2,79L122.8,83.8L126.1,88.8L128.3,93.5L129.5,97.2L129.9,99.7L130,100.5Z" fill="none" stroke="#00e5ff" stroke-width="4.8" stroke-linejoin="round"/><path d="M130,102L130.1,101.2L130.5,99L131.6,95.5L133.6,91.2L136.7,86.5L141,82L146.3,78.2L152.6,75.6L159.6,74.4L166.8,74.8L173.9,76.9L180.5,80.6L186.1,85.6L190.4,91.8L193.1,98.7L194,106L193.1,113.5L190.4,120.9L186.1,128.2L180.5,135.1L173.9,141.8L166.8,148.3L159.6,154.4L152.6,160.4L146.3,166.2L141,171.6L136.7,176.7L133.6,181.1L131.6,184.8L130.5,187.7L130.1,189.4L130,190L129.9,189.4L129.5,187.7L128.4,184.8L126.4,181.1L123.3,176.7L119,171.6L113.7,166.2L107.4,160.4L100.4,154.4L93.2,148.3L86.1,141.8L79.5,135.1L73.9,128.2L69.6,120.9L66.9,113.5L66,106L66.9,98.7L69.6,91.8L73.9,85.6L79.5,80.6L86.1,76.9L93.2,74.8L100.4,74.4L107.4,75.6L113.7,78.2L119,82L123.3,86.5L126.4,91.2L128.4,95.5L129.5,99L129.9,101.2L130,102Z" fill="none" stroke="#76ff03" stroke-width="4.2" stroke-linejoin="round"/><path d="M130,103.4L130.1,102.7L130.4,100.6L131.5,97.3L133.3,93.3L136.2,89L140.2,84.8L145.2,81.3L151,78.8L157.5,77.7L164.2,78.1L170.8,80L176.9,83.5L182.2,88.2L186.2,93.9L188.7,100.3L189.5,107.1L188.7,114.1L186.2,121L182.2,127.7L176.9,134.2L170.8,140.4L164.2,146.4L157.5,152.2L151,157.7L145.2,163.1L140.2,168.1L136.2,172.8L133.3,177L131.5,180.4L130.4,183.1L130.1,184.7L130,185.2L129.9,184.7L129.6,183.1L128.5,180.4L126.7,177L123.8,172.8L119.8,168.1L114.8,163.1L109,157.7L102.5,152.2L95.8,146.4L89.2,140.4L83.1,134.2L77.8,127.7L73.8,121L71.3,114.1L70.5,107.1L71.3,100.3L73.8,93.9L77.8,88.2L83.1,83.5L89.2,80L95.8,78.1L102.5,77.7L109,78.8L114.8,81.3L119.8,84.8L123.8,89L126.7,93.3L128.5,97.3L129.6,100.6L129.9,102.7L130,103.4Z" fill="none" stroke="#ffea00" stroke-width="3.8" stroke-linejoin="round"/><path d="M130,104.7L130.1,104L130.4,102.1L131.4,99.1L133.1,95.3L135.8,91.3L139.5,87.4L144.1,84.1L149.6,81.8L155.6,80.8L161.8,81.2L168,83L173.7,86.2L178.5,90.5L182.2,95.8L184.6,101.8L185.4,108.2L184.6,114.6L182.2,121.1L178.5,127.3L173.7,133.4L168,139.2L161.8,144.7L155.6,150.1L149.6,155.2L144.1,160.2L139.5,164.9L135.8,169.3L133.1,173.1L131.4,176.4L130.4,178.8L130.1,180.3L130,180.8L129.9,180.3L129.6,178.8L128.6,176.4L126.9,173.1L124.2,169.3L120.5,164.9L115.9,160.2L110.4,155.2L104.4,150.1L98.2,144.7L92,139.2L86.3,133.4L81.5,127.3L77.8,121.1L75.4,114.6L74.6,108.2L75.4,101.8L77.8,95.8L81.5,90.5L86.3,86.2L92,83L98.2,81.2L104.4,80.8L110.4,81.8L115.9,84.1L120.5,87.4L124.2,91.3L126.9,95.3L128.6,99.1L129.6,102.1L129.9,104L130,104.7Z" fill="none" stroke="#ff6d00" stroke-width="3.4" stroke-linejoin="round"/><path d="M130,106L130,105.4L130.4,103.6L131.3,100.8L132.9,97.3L135.4,93.6L138.8,90L143.1,87L148.1,84.9L153.6,83.9L159.4,84.2L165.1,85.9L170.4,88.9L174.9,92.9L178.3,97.8L180.5,103.3L181.2,109.2L180.5,115.2L178.3,121.2L174.9,126.9L170.4,132.5L165.1,137.9L159.4,143L153.6,148L148.1,152.7L143.1,157.3L138.8,161.7L135.4,165.7L132.9,169.3L131.3,172.3L130.4,174.5L130,175.9L130,176.4L130,175.9L129.6,174.5L128.7,172.3L127.1,169.3L124.6,165.7L121.2,161.7L116.9,157.3L111.9,152.7L106.4,148L100.6,143L94.9,137.9L89.6,132.5L85.1,126.9L81.7,121.2L79.5,115.2L78.8,109.2L79.5,103.3L81.7,97.8L85.1,92.9L89.6,88.9L94.9,85.9L100.6,84.2L106.4,83.9L111.9,84.9L116.9,87L121.2,90L124.6,93.6L127.1,97.3L128.7,100.8L129.6,103.6L130,105.4L130,106Z" fill="none" stroke="#d62a1e" stroke-width="3" stroke-linejoin="round"/><path d="M130,107.1L130,106.5L130.4,104.8L131.2,102.2L132.7,99L135,95.6L138.2,92.2L142.2,89.4L146.9,87.4L152,86.5L157.4,86.8L162.7,88.4L167.6,91.1L171.8,94.9L175,99.5L177,104.6L177.7,110.1L177,115.7L175,121.2L171.8,126.6L167.6,131.8L162.7,136.8L157.4,141.6L152,146.2L146.9,150.6L142.2,154.9L138.2,159L135,162.7L132.7,166L131.2,168.8L130.4,170.9L130,172.2L130,172.7L130,172.2L129.6,170.9L128.8,168.8L127.3,166L125,162.7L121.8,159L117.8,154.9L113.1,150.6L108,146.2L102.6,141.6L97.3,136.8L92.4,131.8L88.2,126.6L85,121.2L83,115.7L82.3,110.1L83,104.6L85,99.5L88.2,94.9L92.4,91.1L97.3,88.4L102.6,86.8L108,86.5L113.1,87.4L117.8,89.4L121.8,92.2L125,95.6L127.3,99L128.8,102.2L129.6,104.8L130,106.5L130,107.1Z" fill="url(#ag)"/><circle cx="130" cy="108.4" r="2" fill="#ff2d95"/><circle cx="130.2" cy="107.1" r="2" fill="#ff6d00"/><circle cx="131.3" cy="103.4" r="2" fill="#ffea00"/><circle cx="134.1" cy="98.5" r="2" fill="#76ff03"/><circle cx="138.8" cy="93.7" r="2" fill="#00e5ff"/><circle cx="145.4" cy="90.4" r="2" fill="#9b30ff"/><circle cx="153" cy="89.6" r="2" fill="#ff1744"/><circle cx="160.8" cy="91.7" r="2" fill="#18ffb0"/><circle cx="167.4" cy="96.5" r="2" fill="#ff2d95"/><circle cx="171.9" cy="103.3" r="2" fill="#ff6d00"/><circle cx="173.5" cy="111.1" r="2" fill="#ffea00"/><circle cx="171.9" cy="119.3" r="2" fill="#76ff03"/><circle cx="167.4" cy="127.2" r="2" fill="#00e5ff"/><circle cx="160.8" cy="134.6" r="2" fill="#9b30ff"/><circle cx="153" cy="141.6" r="2" fill="#ff1744"/><circle cx="145.4" cy="148.1" r="2" fill="#18ffb0"/><circle cx="138.8" cy="154.3" r="2" fill="#ff2d95"/><circle cx="134.1" cy="159.8" r="2" fill="#ff6d00"/><circle cx="131.3" cy="164.3" r="2" fill="#ffea00"/><circle cx="130.2" cy="167.2" r="2" fill="#76ff03"/><circle cx="130" cy="168.2" r="2" fill="#00e5ff"/><circle cx="129.8" cy="167.2" r="2" fill="#9b30ff"/><circle cx="128.7" cy="164.3" r="2" fill="#ff1744"/><circle cx="125.9" cy="159.8" r="2" fill="#18ffb0"/><circle cx="121.2" cy="154.3" r="2" fill="#ff2d95"/><circle cx="114.6" cy="148.1" r="2" fill="#ff6d00"/><circle cx="107" cy="141.6" r="2" fill="#ffea00"/><circle cx="99.2" cy="134.6" r="2" fill="#76ff03"/><circle cx="92.6" cy="127.2" r="2" fill="#00e5ff"/><circle cx="88.1" cy="119.3" r="2" fill="#9b30ff"/><circle cx="86.5" cy="111.1" r="2" fill="#ff1744"/><circle cx="88.1" cy="103.3" r="2" fill="#18ffb0"/><circle cx="92.6" cy="96.5" r="2" fill="#ff2d95"/><circle cx="99.2" cy="91.7" r="2" fill="#ff6d00"/><circle cx="107" cy="89.6" r="2" fill="#ffea00"/><circle cx="114.6" cy="90.4" r="2" fill="#76ff03"/><circle cx="121.2" cy="93.7" r="2" fill="#00e5ff"/><circle cx="125.9" cy="98.5" r="2" fill="#9b30ff"/><circle cx="128.7" cy="103.4" r="2" fill="#ff1744"/><circle cx="129.8" cy="107.1" r="2" fill="#18ffb0"/><g transform="translate(130,124)"><rect x="-2.4" y="-17" width="4.8" height="17" rx="2.2" fill="#1f9a8e" transform="rotate(17.2)"/><rect x="-2.4" y="-21.6" width="4.8" height="21.6" rx="2.2" fill="#2bc0d0" transform="rotate(28.6)"/><rect x="-2.4" y="-26.2" width="4.8" height="26.2" rx="2.2" fill="#e8641e" transform="rotate(40.1)"/><rect x="-2.4" y="-30.8" width="4.8" height="30.8" rx="2.2" fill="#ffd060" transform="rotate(51.6)"/><rect x="-2.4" y="-35.4" width="4.8" height="35.4" rx="2.2" fill="#e05a1e" transform="rotate(63)"/><rect x="-2.4" y="-40" width="4.8" height="40" rx="2.2" fill="#d62a1e" transform="rotate(74.5)"/><rect x="-2.4" y="-17" width="4.8" height="17" rx="2.2" fill="#1f9a8e" transform="rotate(-17.2)"/><rect x="-2.4" y="-21.6" width="4.8" height="21.6" rx="2.2" fill="#2bc0d0" transform="rotate(-28.6)"/><rect x="-2.4" y="-26.2" width="4.8" height="26.2" rx="2.2" fill="#e8641e" transform="rotate(-40.1)"/><rect x="-2.4" y="-30.8" width="4.8" height="30.8" rx="2.2" fill="#ffd060" transform="rotate(-51.6)"/><rect x="-2.4" y="-35.4" width="4.8" height="35.4" rx="2.2" fill="#e05a1e" transform="rotate(-63)"/><rect x="-2.4" y="-40" width="4.8" height="40" rx="2.2" fill="#d62a1e" transform="rotate(-74.5)"/><ellipse cx="0" cy="10" rx="20" ry="11" fill="#2f9a3c"/><circle cx="0" cy="-4" r="11.5" fill="#2f9a3c"/><ellipse cx="0" cy="-1.5" rx="8" ry="7" fill="#d2502a"/><circle cx="-4.2" cy="-5.6" r="2.5" fill="#ffe24a"/><circle cx="4.2" cy="-5.6" r="2.5" fill="#ffe24a"/><path d="M-9,-12l3.4,-7 3.6,6Z" fill="#1f8a8e"/><path d="M9,-12l-3.4,-7 -3.6,6Z" fill="#1f8a8e"/><path d="M18,14q16,2 18,-11q2,-11 -8,-13" fill="none" stroke="#1f9ad0" stroke-width="5.2" stroke-linecap="round"/><circle cx="22" cy="12" r="1.8" fill="#bfe06a"/><circle cx="24.6" cy="7.6" r="1.8" fill="#bfe06a"/><circle cx="27.2" cy="3.2" r="1.8" fill="#bfe06a"/><circle cx="29.8" cy="-1.2" r="1.8" fill="#bfe06a"/><circle cx="32.4" cy="-5.6" r="1.8" fill="#bfe06a"/></g></svg></div>
+    <h1>ALEBRIJE&nbsp;JOURNEY</h1>
     <div class="sub">A&nbsp;Brackenholm&nbsp;Tale</div>
     <p class="flavor">A land of green hills, charming villages, and an alarming number of people who'd happily stab you for a copper. You were one of them — the stabbing-for-coppers sort. We all start somewhere.</p>
     <div class="btn-row">
@@ -310,7 +318,7 @@
 <script>
 "use strict";
 /* ============================================================================
-   THE BEACON — A Brackenholm Tale
+   ALEBRIJE JOURNEY — A Brackenholm Tale
    A single-file 2.5D/3D action-RPG. Three.js r128. Procedural everything.
    Copyright-safe original cast & world (no Fable IP).
    ========================================================================== */
@@ -2757,7 +2765,7 @@ window.addEventListener('load', init);
 
 /* ===== CHAPTER ENGINE (spliced) ===== */
 /* ===========================================================================
-   THE BEACON — CHAPTER ENGINE  (Phase 1)
+   ALEBRIJE JOURNEY — CHAPTER ENGINE  (Phase 1)
    13 haunted chapters of England's century · creatures · bosses · necromancy
    Additive layer: the hub (Carrowgate) + Beacon path are untouched; chapters
    are built in a far arena at STAGE_ORIGIN and torn down on exit.
@@ -3531,7 +3539,7 @@ function travelTo(id){ if(typeof closeModal==='function') closeModal(); enterSta
 
 /* ===== PHASE 2 (spliced) ===== */
 /* ===========================================================================
-   THE BEACON — PHASE 2  (chapters 5–9 deepened)
+   ALEBRIJE JOURNEY — PHASE 2  (chapters 5–9 deepened)
    ranged foes · ground hazards · death-booms · the serpentine eel ·
    five bespoke boss mechanics · hero set-pieces · the rescue of Corvin Sable
 =========================================================================== */
@@ -3772,7 +3780,7 @@ applyPhase2Data();
 
 /* ===== BOSS FORMS + NECRO INHERITANCE (spliced) ===== */
 /* ===========================================================================
-   THE BEACON — BOSS FORMS + NECROMANCY INHERITANCE
+   ALEBRIJE JOURNEY — BOSS FORMS + NECROMANCY INHERITANCE
    Distinct smooth-styled boss silhouettes (inspired by a menagerie of forms):
    spider · lava-golem · coin-golem · plague-doctor · hooded executioner ·
    plumed officer · caped highwayman · bicorned captain · hulking brute, etc.
@@ -3989,7 +3997,7 @@ applyBossForms();
 
 /* ===== PROCEDURAL ANIMATION RIGS + COLOUR VARIANTS (spliced) ===== */
 /* ===========================================================================
-   THE BEACON — PROCEDURAL ANIMATION RIGS + COLOUR VARIANTS
+   ALEBRIJE JOURNEY — PROCEDURAL ANIMATION RIGS + COLOUR VARIANTS
    Every character gets an articulated rig (hip/shoulder/neck pivots) driven by
    weighted walk cycles, idle breathing, lean-into-motion, and attack
    wind-up / follow-through. Crowds get per-spawn colour variation.
@@ -4282,7 +4290,7 @@ function animForTemplate(t){ if(t.form && t.form!=='archetype') return animForFo
 
 /* ===== WAYSTATION TOWNS + MINIGAMES (spliced) ===== */
 /* ===========================================================================
-   THE BEACON — WAYSTATION TOWNS
+   ALEBRIJE JOURNEY — WAYSTATION TOWNS
    After every chapter you pass through a town: moral dilemmas to weigh
    (each one-time, swinging your reputation) and a minigame to play for coin.
 =========================================================================== */
@@ -4788,7 +4796,7 @@ function mgArchery(id){
 
 /* ===== ALEBRIJE COLOURS + BOSS STATUS ATTACKS (spliced) ===== */
 /* ===========================================================================
-   THE BEACON — ALEBRIJE COLOURS + BOSS STATUS ATTACKS
+   ALEBRIJE JOURNEY — ALEBRIJE COLOURS + BOSS STATUS ATTACKS
    Bosses (and Pip) are painted in the vivid, saturated palette of Mexican
    alebrijes; each boss fires a themed projectile and wields a signature
    ability with a real status effect (web-slow, witch-hex, homing wisps, ...).
@@ -4887,7 +4895,7 @@ function fireBossBolt(b,px,pz){
 
 /* ===== ALEBRIJE PAINTWORK (spliced) ===== */
 /* ===========================================================================
-   THE BEACON — ALEBRIJE PAINTWORK
+   ALEBRIJE JOURNEY — ALEBRIJE PAINTWORK
    Procedural folk-art canvas textures in the Oaxacan style: ringed spots,
    zigzag bands, diamond lattice, scale fans, feathered plumes, banner
    stripes — plus segmented wing-fans on every boss (and Pip).
@@ -5087,7 +5095,7 @@ function addAleWings(g,def){
 
 /* ===== FOLK BEASTS + STAGE ATMOSPHERE (spliced) ===== */
 /* ===========================================================================
-   THE BEACON — FOLK BEASTS + STAGE ATMOSPHERE
+   ALEBRIJE JOURNEY — FOLK BEASTS + STAGE ATMOSPHERE
    New regular enemies: the Werewolf (fast, lunging), the Wodewose/Bigfoot
    (massive, slow, crushing), and the Yasquatch (frost-grip chills you).
    Plus a stage graphics pass: mottled ground textures, instanced tufts and
@@ -5401,7 +5409,7 @@ function clearStageFx(){
 
 /* ===== REAL ARCHERY + MOTION POLISH (spliced) ===== */
 /* ===========================================================================
-   THE BEACON — REAL ARCHERY + MOTION POLISH
+   ALEBRIJE JOURNEY — REAL ARCHERY + MOTION POLISH
    The bow is handled like a real bow: nock, draw to the cheek, anchor,
    loose, follow-through. The string visibly bends, an arrow sits nocked
    during the draw, and loosed arrows fly a true arc and stick or drop.
@@ -5518,7 +5526,7 @@ function updateBow(dt){
 
 /* ===== NECROMANCY INHERITANCE (spliced) ===== */
 /* ===========================================================================
-   THE BEACON — NECROMANCY INHERITANCE
+   ALEBRIJE JOURNEY — NECROMANCY INHERITANCE
    A raised thrall keeps the colours of the foe it was torn from, and fights
    with that foe's own attacks (ranged shots, lunges, frost-grip, crushing
    blows). Colours are captured as plain hex so they survive stage teardown
@@ -5595,7 +5603,7 @@ function paletteFromColors(c){
 
 /* ===== COVENANT, PROVERBS, VIGILS (spliced) ===== */
 /* ===========================================================================
-   THE BEACON — THE COVENANT, THE PROVERBS, AND THE VIGILS
+   ALEBRIJE JOURNEY — THE COVENANT, THE PROVERBS, AND THE VIGILS
    All scripture below is the Douay-Rheims (Challoner revision, 1750), which
    is in the public domain. Verses are quoted verbatim; nothing is invented.
      · Deuteronomy 28 — the blessings and curses, applied as real effects
