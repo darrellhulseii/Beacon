@@ -46,8 +46,8 @@
   @media (orientation:landscape) and (max-height:430px){
     #stick{transform:scale(calc(var(--uiScale) * .88));transform-origin:left bottom;}
     #btns{transform:scale(calc(var(--uiScale) * .88));transform-origin:right bottom;}
-    #title .flavor{display:none;} #title h1{font-size:clamp(26px,7vh,46px);}
-    .hint{font-size:11px;}
+    #title .flavor{display:none;} #title h1{font-size:clamp(20.8px,5.6vh,36.8px);}
+    .hint{font-size:11px;} #title .hint{font-size:8.8px;}
   }
   #game{position:fixed;inset:0;}
   canvas{display:block;position:absolute;inset:0;}
@@ -63,12 +63,12 @@
   @keyframes aleSpin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
   #titleArt .aleRing{transform-origin:130px 122px;animation:aleSpin 46s linear infinite;}
   #titleArt .aleRing2{transform-origin:130px 122px;animation:aleSpin 64s linear infinite reverse;}
-  #title h1{font-family:'Cinzel',serif;font-weight:900;font-size:clamp(32px,10.5vw,74px);letter-spacing:.06em;
+  #title h1{font-family:'Cinzel',serif;font-weight:900;font-size:clamp(25.6px,8.4vw,59.2px);letter-spacing:.06em;
     background:linear-gradient(92deg,#ff2d95 0%,#ff6d00 24%,#ffea00 44%,#76ff03 62%,#00e5ff 80%,#9b30ff 100%);
     -webkit-background-clip:text;background-clip:text;color:transparent;-webkit-text-fill-color:transparent;
     text-shadow:0 0 44px rgba(255,140,40,.30);line-height:.98;}
-  #title .sub{font-style:italic;font-size:clamp(15px,4.5vw,22px);color:var(--parch-dim);margin-top:10px;letter-spacing:.12em;}
-  #title .flavor{max-width:520px;margin:22px auto 6px;font-size:clamp(14px,4vw,17px);color:#bfae86;line-height:1.5;font-style:italic;opacity:.92;}
+  #title .sub{font-style:italic;font-size:clamp(12px,3.6vw,17.6px);color:var(--parch-dim);margin-top:10px;letter-spacing:.12em;}
+  #title .flavor{max-width:520px;margin:22px auto 6px;font-size:clamp(11.2px,3.2vw,13.6px);color:#bfae86;line-height:1.5;font-style:italic;opacity:.92;}
   .btn-row{display:flex;flex-direction:column;gap:14px;margin-top:30px;width:min(320px,80vw);}
   .btn{font-family:'Cinzel',serif;font-weight:700;font-size:18px;letter-spacing:.08em;color:var(--ink);
     background:linear-gradient(180deg,var(--gold-bright),var(--gold));border:1px solid var(--gold-deep);
@@ -77,6 +77,7 @@
   .btn.ghost{background:transparent;color:var(--gold-bright);border:1px solid var(--gold-deep);}
   .btn.danger{background:linear-gradient(180deg,#d6453c,var(--blood));color:#fff;border-color:var(--blood-deep);}
   .hint{margin-top:26px;font-size:13px;color:#8a7d60;letter-spacing:.05em;line-height:1.6;max-width:440px;}
+  #title .hint{font-size:10.4px;}
   .hint b{color:var(--parch-dim);font-weight:600;}
 
   /* ---------- HUD ---------- */
@@ -774,12 +775,14 @@ function makeHuman(o){
 
   // neck + head
   g.add(pm(PART.neck, skin, 0,1.66,0));
-  const head=pm(PART.head, skin, 0,1.80,0); head.scale.set(1,1.12,1.02); g.add(head);
-  g.add(pm(PART.eye, eyeM, -0.052,1.81,0.118));
-  g.add(pm(PART.eye, eyeM,  0.052,1.81,0.118));
-  g.add(pm(PART.nose, skin, 0,1.775,0.135));
-  const hair=pm(PART.hair, hairM, 0,1.845,-0.02); hair.scale.set(1.03,0.92,1.05); g.add(hair);
-  const fringe=pm(PART.hair, hairM, 0,1.875,0.055); fringe.scale.set(0.9,0.5,0.62); g.add(fringe);
+  // head pivot at the neck: skull, eyes, nose and hair turn together
+  const head=new THREE.Group(); head.position.set(0,1.66,0); g.add(head);
+  const skull=pm(PART.head, skin, 0,0.14,0); skull.scale.set(1,1.12,1.02); head.add(skull);
+  head.add(pm(PART.eye, eyeM, -0.052,0.15,0.118));
+  head.add(pm(PART.eye, eyeM,  0.052,0.15,0.118));
+  head.add(pm(PART.nose, skin, 0,0.115,0.135));
+  const hair=pm(PART.hair, hairM, 0,0.185,-0.02); hair.scale.set(1.03,0.92,1.05); head.add(hair);
+  const fringe=pm(PART.hair, hairM, 0,0.215,0.055); fringe.scale.set(0.9,0.5,0.62); head.add(fringe);
 
   return { group:g, skin, shirt, pants, hair:hairM, shoe:shoeM, armL, armR, legL, legR, handR, head };
 }
@@ -1070,6 +1073,7 @@ function tintTowards(mat, neutralHex, edgeHex, t){
   mat.color.copy(_cA).lerp(_cB, t);
 }
 function updateHeroAppearance(){
+  if(typeof paintHeroTunic==='function') paintHeroTunic();
   const m = S.morality;
   const good = m>0 ? m/100 : 0;
   const evil = m<0 ? -m/100 : 0;
@@ -1798,7 +1802,10 @@ function updateEnemies(dt){
     if((e.hexT||0)>0){ e.hexT-=dt; e.hexTick=(e.hexTick||0)-dt; if(e.hexTick<=0){ e.hexTick=0.7; damageEnemy(e,e.hexDmg||5); spawnFlash(e.x,1.3,e.z,0xaa00ff,0.4); } }
     if(e.atkCd>0) e.atkCd-=dt;
     if(e.atkAnim>0) e.atkAnim-=dt;
-    if(e.hitFlash>0){ e.hitFlash-=dt; e.group.scale.setScalar((e.group.children?1:1)); }
+    if(e.baseScale===undefined) e.baseScale=e.group.scale.x;
+    if(e.hitFlash>0){ e.hitFlash-=dt; const _k=Math.max(0,e.hitFlash)/0.12;
+      e.group.scale.set(e.baseScale*(1+0.14*_k), e.baseScale*(1-0.16*_k), e.baseScale*(1+0.14*_k)); }
+    else if(e.group.scale.y!==e.baseScale) e.group.scale.setScalar(e.baseScale);
     const d=dist2D(e.x,e.z,px,pz);
     if(e.rcd>0) e.rcd-=dt;
     let aggro = e.tag==='dogThreat' ? 30 : 16;
@@ -2462,7 +2469,7 @@ function updateSwing(dt){
   const archery = (typeof bowBusy==='function') && bowBusy();
 
   let lLeg, rLeg, lArm, rArm, rArmZ=0, lArmZ=0;
-  let kneeL=0, kneeR=0, elbL=-0.12, elbR=-0.12, headX=0, headZ=0, hip=0;
+  let kneeL=0, kneeR=0, elbL=-0.12, elbR=-0.12, headX=0, headZ=0, hip=0, spreadL=0, spreadR=0;
 
   if(archery){
     // — archer stance: bow arm (right) extended, left hand draws to the cheek —
@@ -2473,7 +2480,7 @@ function updateSwing(dt){
     headZ=-0.10*dr; headX=-0.04*dr;
     if(moving){ lLeg=Math.sin(ph)*0.40; rLeg=-Math.sin(ph)*0.40;
       kneeL=(0.15+Math.max(0,Math.sin(ph+1.9))*0.5)*m; kneeR=(0.15+Math.max(0,Math.sin(ph+1.9+Math.PI))*0.5)*m; }
-    else { lLeg=0.26; rLeg=-0.30; kneeL=0.12; kneeR=0.22; }       // planted open stance
+    else { lLeg=0.04; rLeg=-0.04; kneeL=0.08; kneeR=0.10; spreadL=-0.15; spreadR=0.15; }  // feet on the shooting line
   } else if(RT.dodging){
     lArm=rArm=-0.6; elbL=elbR=-1.2; lLeg=0.5; rLeg=-0.5; kneeL=kneeR=0.8;
   } else if(moving){
@@ -2500,14 +2507,22 @@ function updateSwing(dt){
 
   const k=archery?0.5:0.35, ks=(RT.swingT>0||archery)?0.62:0.32;
   lL.rotation.x=lerp(lL.rotation.x,lLeg,k);  lR.rotation.x=lerp(lR.rotation.x,rLeg,k);
-  aL.rotation.x=lerp(aL.rotation.x,lArm,ks); aR.rotation.x=lerp(aR.rotation.x,rArm,ks);
-  aL.rotation.z=lerp(aL.rotation.z||0,0.08+lArmZ,ks); aR.rotation.z=lerp(aR.rotation.z||0,-0.08+rArmZ,ks);
+  lL.rotation.z=lerp(lL.rotation.z||0,spreadL,k); lR.rotation.z=lerp(lR.rotation.z||0,spreadR,k);
+  if(archery && typeof archerPose==='function'){ archerPose(0.45); }
+  else {
+    aL.rotation.x=lerp(aL.rotation.x,lArm,ks); aR.rotation.x=lerp(aR.rotation.x,rArm,ks);
+    aL.rotation.z=lerp(aL.rotation.z||0,0.08+lArmZ,ks); aR.rotation.z=lerp(aR.rotation.z||0,-0.08+rArmZ,ks);
+    aL.rotation.y=lerp(aL.rotation.y||0,0,ks); aR.rotation.y=lerp(aR.rotation.y||0,0,ks);
+    if(typeof bowRest==='function') bowRest(0.25);
+  }
   if(lL.lo) lL.lo.rotation.x=lerp(lL.lo.rotation.x,kneeL,k);
   if(lR.lo) lR.lo.rotation.x=lerp(lR.lo.rotation.x,kneeR,k);
-  if(aL.lo) aL.lo.rotation.x=lerp(aL.lo.rotation.x,elbL,ks);
-  if(aR.lo) aR.lo.rotation.x=lerp(aR.lo.rotation.x,elbR,ks);
+  if(!archery){
+    if(aL.lo) aL.lo.rotation.x=lerp(aL.lo.rotation.x,elbL,ks);
+    if(aR.lo) aR.lo.rotation.x=lerp(aR.lo.rotation.x,elbR,ks);
+  }
   PLAYER.group.rotation.z=lerp(PLAYER.group.rotation.z||0,hip,0.2);
-  if(PLAYER.head){
+  if(PLAYER.head && !archery){
     PLAYER.head.rotation.x=lerp(PLAYER.head.rotation.x,headX,0.22);
     PLAYER.head.rotation.z=lerp(PLAYER.head.rotation.z||0,headZ,0.3);
     PLAYER.head.rotation.y=lerp(PLAYER.head.rotation.y, archery?0:Math.sin(PLAYER._idleT*0.8)*0.05, 0.1);
@@ -2717,6 +2732,7 @@ function loop(){
   requestAnimationFrame(loop);
   const dt=clock?Math.min(clock.getDelta(),0.05):0.016;
   if(RT.started) update(dt);
+  if(RT.started && typeof updateCharFx==='function') updateCharFx();
   if(renderer) renderer.render(scene,camera);
 }
 function startLoop(){ if(RT.loopRunning) return; RT.loopRunning=true; loop(); }
@@ -4096,6 +4112,13 @@ applyBossForms();
 
 /* ---- per-stage colour variants for crowd diversity ---- */
 function buildStageMatVariants(){
+  if(typeof paintedVariantSet==='function' && typeof aleTex==='function'){
+    const num=(RT.stage&&RT.stage.num)||1;
+    STAGE.matVariants=[]; STAGE.matVariantsOwned=true;
+    for(let v=0; v<3; v++) STAGE.matVariants.push(paintedVariantSet(num,v));
+    return;
+  }
+  STAGE.matVariantsOwned=false;
   STAGE.matVariants=[STAGE.mats];
   for(let v=0; v<3; v++){
     const dh=rand(-0.06,0.06), dl=rand(-0.12,0.12), ds=rand(-0.06,0.06);
@@ -4110,8 +4133,11 @@ function buildStageMatVariants(){
 function pickCreatureMats(){ const a=STAGE.matVariants; if(!a||!a.length) return STAGE.mats; return a[Math.floor(Math.random()*a.length)]; }
 function disposeMatVariants(){
   if(!STAGE.matVariants) return;
-  for(let i=1;i<STAGE.matVariants.length;i++){ const vm=STAGE.matVariants[i]; for(const k in vm){ const m=vm[k]; if(m&&m.dispose&&m!==MAT.soul) m.dispose(); } }
-  STAGE.matVariants=null;
+  const i0=STAGE.matVariantsOwned?0:1;
+  for(let i=i0;i<STAGE.matVariants.length;i++){ const vm=STAGE.matVariants[i];
+    if(vm._tex){ for(const t of vm._tex){ if(t&&t.dispose) t.dispose(); } }
+    for(const k in vm){ if(k==='_tex') continue; const m=vm[k]; if(m&&m.dispose&&m!==MAT.soul) m.dispose(); } }
+  STAGE.matVariants=null; STAGE.matVariantsOwned=false;
 }
 
 /* ---- rigged humanoid (hip + shoulder + neck pivots) ---- */
@@ -4996,9 +5022,9 @@ function fireBossBolt(b,px,pz){
 const ALETEX = {};
 function _cssc(n){ return '#'+('00000'+((n>>>0)&0xffffff).toString(16)).slice(-6); }
 
-function aleTex(kind, base, a1, a2, rep){
+function aleTex(kind, base, a1, a2, rep, nocache){
   const key=kind+'|'+base+'|'+a1+'|'+a2+'|'+(rep||1);
-  if(ALETEX[key]) return ALETEX[key];
+  if(!nocache && ALETEX[key]) return ALETEX[key];
   const S=256, cv=document.createElement('canvas'); cv.width=cv.height=S;
   const c=cv.getContext('2d');
   const INK='#1a1016', WHT='#fff6da';
@@ -5119,7 +5145,7 @@ function aleTex(kind, base, a1, a2, rep){
   tex.wrapS=tex.wrapT=THREE.RepeatWrapping;
   if(THREE.sRGBEncoding!==undefined) tex.encoding=THREE.sRGBEncoding;
   tex.repeat.set(rep||1,rep||1);
-  ALETEX[key]=tex;
+  if(!nocache) ALETEX[key]=tex;
   return tex;
 }
 
@@ -5206,6 +5232,7 @@ function ensureBeastMats(){
     eyeI:new THREE.MeshStandardMaterial({color:0x9fe0ff,emissive:0x60c0ff,emissiveIntensity:1.3,roughness:0.3}),
     nose:S(0x181010,0,0,0.4)
   };
+  if(typeof paintBeastMats==='function') paintBeastMats(BEASTMATS);
   return BEASTMATS;
 }
 
@@ -5536,14 +5563,45 @@ function mkArrowMesh(){
 /* ---- bow detail: live string + nocked arrow, added to the existing bow ---- */
 function ensureBowDetail(){
   if(!PLAYER.bow || PLAYER.bow.userData.detail) return;
-  const pos=new Float32Array([0,0.58,0.02, 0,0,0.02, 0,-0.58,0.02]);
-  const sg=new THREE.BufferGeometry();
-  sg.setAttribute('position',new THREE.BufferAttribute(pos,3));
-  const string=new THREE.Line(sg,new THREE.LineBasicMaterial({color:0xe8dcc0}));
-  PLAYER.bow.add(string);
-  const arrow=mkArrowMesh(); arrow.position.set(0,0,0.02); arrow.visible=false;
-  PLAYER.bow.add(arrow);
-  PLAYER.bow.userData.detail={sg:sg,arrow:arrow};
+  const bow=PLAYER.bow;
+  const wood=(bow.children[0]&&bow.children[0].material)||new THREE.MeshStandardMaterial({color:0x6a3a1a,roughness:0.7});
+  for(const c of bow.children) c.visible=false;               // retire the old straight stick
+  const leather=new THREE.MeshStandardMaterial({color:0x2a1a10,roughness:0.85});
+  const grip=new THREE.Mesh(new THREE.BoxGeometry(0.055,0.17,0.06),leather); bow.add(grip);
+  // a limb: a tapered chain of segments sweeping back toward the archer, slight recurve at the tip
+  const BH=0.162, LEN=0.56;
+  const limbZ=function(s){ return -0.17*s*s + 0.25*Math.max(0,s-0.82)*Math.max(0,s-0.82); };
+  function limb(dir){
+    const piv=new THREE.Group(); piv.position.set(0,dir*0.07,0); bow.add(piv);
+    const N=6;
+    for(let i=0;i<N;i++){
+      const s0=i/N, s1=(i+1)/N;
+      const y0=dir*LEN*s0, y1=dir*LEN*s1, z0=limbZ(s0), z1=limbZ(s1);
+      const L=Math.hypot(y1-y0,z1-z0), w=0.05-0.022*s0;
+      const seg=new THREE.Mesh(new THREE.BoxGeometry(w,L+0.006,w*0.8),wood);
+      seg.position.set(0,(y0+y1)/2,(z0+z1)/2);
+      seg.rotation.x=Math.atan2(z1-z0,y1-y0);
+      seg.castShadow=true; piv.add(seg);
+    }
+    return piv;
+  }
+  const up=limb(1), lo=limb(-1);
+  const pos=new Float32Array(9);
+  const sg=new THREE.BufferGeometry(); sg.setAttribute('position',new THREE.BufferAttribute(pos,3));
+  const string=new THREE.Line(sg,new THREE.LineBasicMaterial({color:0xf2e8d0})); bow.add(string);
+  const arrow=mkArrowMesh(); arrow.visible=false; bow.add(arrow);
+  bow.userData.detail={sg:sg,arrow:arrow,up:up,lo:lo,BH:BH,tip:new THREE.Vector3(0,LEN,limbZ(1))};
+  bowShape(0,BH);
+}
+/* flex the limbs and route the string through the nock point */
+function bowShape(flex,nockDist){
+  const d=PLAYER.bow&&PLAYER.bow.userData.detail; if(!d) return;
+  d.up.rotation.x=-flex; d.lo.rotation.x=flex;
+  const ty=d.tip.y, tz=d.tip.z, c=Math.cos(flex), s=Math.sin(flex);
+  const uy=0.07+ty*c+tz*s,  uz=-ty*s+tz*c;          // upper tip after flex
+  const a=d.sg.attributes.position;
+  a.setXYZ(0,0,uy,uz); a.setXYZ(1,0,0.02,-nockDist); a.setXYZ(2,0,-uy,uz);
+  a.needsUpdate=true;
 }
 
 /* ---- aim: track the nearest living threat, else the facing line ---- */
@@ -5564,16 +5622,17 @@ function startBowDraw(){
   BOWFX.s='draw'; BOWFX.t=0; BOWFX.draw=0;
 }
 function bowCancel(){
-  BOWFX.s='idle'; BOWFX.t=0; BOWFX.draw=0;
-  if(PLAYER.bow){ PLAYER.bow.rotation.x=0;
-    const d=PLAYER.bow.userData.detail;
-    if(d){ d.arrow.visible=false; d.sg.attributes.position.setZ(1,0.02); d.sg.attributes.position.needsUpdate=true; } }
+  BOWFX.s='idle'; BOWFX.t=0; BOWFX.draw=0; BOWFX.fol=0;
+  const d=PLAYER.bow&&PLAYER.bow.userData.detail;
+  if(d){ d.arrow.visible=false; bowShape(0,d.BH); }
 }
 
 /* ---- loose: an arrow that flies a real arc ---- */
 function bowLoose(dx,dz){
   const m=mkArrowMesh();
   m.position.set(PLAYER.group.position.x+dx*0.7, 1.45, PLAYER.group.position.z+dz*0.7);
+  const _d=PLAYER.bow&&PLAYER.bow.userData.detail;
+  if(_d && _d.arrow.visible){ const wp=new THREE.Vector3(); _d.arrow.getWorldPosition(wp); m.position.set(wp.x+dx*0.35, wp.y, wp.z+dz*0.35); }
   m.rotation.y=Math.atan2(dx,dz);
   scene.add(m);
   PROJ.push({mesh:m, vx:dx*52, vz:dz*52, vy:1.4, grav:7, life:3.2,
@@ -5588,29 +5647,113 @@ function updateBow(dt){
   if(RT.dodging && BOWFX.s==='draw'){ bowCancel(); return; }
   if(BOWFX.s==='draw'){
     BOWFX.t+=dt;
-    BOWFX.draw=_easeOut(Math.min(1,BOWFX.t/0.38));
+    // 0-.12 raise the bow · .12-.38 draw · .38-.44 settle at anchor · loose
+    BOWFX.draw=_easeOut(clamp((BOWFX.t-0.12)/0.26,0,1));
     const a=bowAimDir(); BOWFX.dx=a.dx; BOWFX.dz=a.dz;     // track the mark
-    if(BOWFX.t>=0.38){
+    if(BOWFX.t>=0.44){
       bowLoose(BOWFX.dx,BOWFX.dz);
       RT.bowTimer=CFG.BOW_CD;
       BOWFX.s='follow'; BOWFX.t=0;
     }
   } else if(BOWFX.s==='follow'){
     BOWFX.t+=dt;
-    BOWFX.draw=Math.max(0, 1-BOWFX.t/0.07);               // string snaps home
-    if(BOWFX.t>0.26){ bowCancel(); return; }
+    BOWFX.draw=Math.max(0, 1-BOWFX.t/0.05);               // string snaps home
+    BOWFX.fol=Math.min(1,BOWFX.t/0.12);
+    if(BOWFX.t>0.34){ bowCancel(); return; }
   }
-  // face the mark while shooting
-  PLAYER.group.rotation.y=Math.atan2(BOWFX.dx,BOWFX.dz);
-  // string + nocked arrow + bow recoil
-  const d=PLAYER.bow && PLAYER.bow.userData.detail;
-  if(d){
-    d.sg.attributes.position.setZ(1, 0.02-0.30*BOWFX.draw);
-    d.sg.attributes.position.needsUpdate=true;
-    d.arrow.visible=(BOWFX.s==='draw');
-    d.arrow.position.z=0.02-0.30*BOWFX.draw;
+  // stand side-on: bow shoulder leads toward the mark
+  PLAYER.group.rotation.y=Math.atan2(BOWFX.dx,BOWFX.dz)-ARCH_SIDE;
+}
+
+/* ===========================================================================
+   ARCHER POSE — two-bone IK
+   Bow arm: straight, reaching so the bow hand sits on the line of sight.
+   Draw arm: IK'd so the hand is ON the string, riding it back to the jaw,
+   elbow high behind the shoulder. The bow is oriented upright and aimed
+   down the arrow; limbs flex and the string bends with the draw.
+=========================================================================== */
+const ARCH_SIDE=1.40;                          // ~80 degrees side-on
+let _AK=null;
+function _ak(){ if(_AK) return _AK; const V=function(){return new THREE.Vector3();};
+  _AK={a:V(),A:V(),B:V(),S:V(),T:V(),E:V(),P:V(),u:V(),f:V(),X:V(),Y:V(),Z:V(),w:V(),t1:V(),
+       up:new THREE.Vector3(0,1,0),down:new THREE.Vector3(0,-1,0),
+       m:new THREE.Matrix4(),q:new THREE.Quaternion(),qb:new THREE.Quaternion(),qh:new THREE.Quaternion(),
+       qp:new THREE.Quaternion(),qx:new THREE.Quaternion(),I:new THREE.Quaternion()}; return _AK; }
+function ikElbow(S,T,pole,L1,L2,E){
+  const K=_ak(), d=K.t1.copy(T).sub(S);
+  const D=clamp(d.length(),0.02,L1+L2-0.001); d.normalize();
+  const a=(L1*L1-L2*L2+D*D)/(2*D), hh=Math.sqrt(Math.max(0,L1*L1-a*a));
+  const p=K.w.copy(pole).sub(S); p.addScaledVector(d,-p.dot(d)); if(p.lengthSq()<1e-8) p.set(0,1,0); p.normalize();
+  E.copy(S).addScaledVector(d,a).addScaledVector(p,hh);
+}
+function setArmIK(arm,S,E,T,k){
+  const K=_ak();
+  const u=K.u.copy(E).sub(S).normalize(), f=K.f.copy(T).sub(E).normalize();
+  const perp=K.Z.copy(f).addScaledVector(u,-f.dot(u));
+  if(perp.lengthSq()<1e-8) perp.set(0,0,1).addScaledVector(u,-u.z);
+  const Z=perp.normalize().multiplyScalar(-1), Y=K.Y.copy(u).multiplyScalar(-1), X=K.X.copy(Y).cross(Z);
+  K.m.makeBasis(X,Y,Z); K.q.setFromRotationMatrix(K.m);
+  arm.quaternion.slerp(K.q,k);
+  if(arm.lo) arm.lo.rotation.set(lerp(arm.lo.rotation.x,Math.acos(clamp(f.dot(u),-1,1)),k),0,0);
+}
+function archerPose(k){
+  const K=_ak(), aL=PLAYER.armL, aR=PLAYER.armR, bow=PLAYER.bow;
+  const d=bow&&bow.userData.detail; if(!d||!aL||!aR) return;
+  const L1=0.34, L2=0.32, fol=BOWFX.fol||0, dr=BOWFX.draw||0, loosed=(BOWFX.s==='follow');
+  // aim in body space (body stands ARCH_SIDE side-on)
+  const a=K.a.set(Math.sin(ARCH_SIDE),0,Math.cos(ARCH_SIDE));
+  const yaw=Math.atan2(a.x,a.z);
+  // anchor: the jaw, head turned to sight down the arrow
+  const A=K.A.set(0.10*Math.sin(yaw),1.70,0.10*Math.cos(yaw)).addScaledVector(a,-0.03);
+  // full-draw length: straight bow arm on the sight line through the anchor
+  const SR=aR.position, w=K.w.copy(A).sub(SR), Lr=(L1+L2)*0.997;
+  const wa=w.dot(a), disc=wa*wa-w.lengthSq()+Lr*Lr;
+  const t=Math.max(d.BH+0.2, disc>0 ? -wa+Math.sqrt(disc) : Lr);
+  // push-pull: set the hook close to the chest, then the bow arm pushes out as the string comes back
+  const SET=0.22;
+  const nock=loosed ? d.BH : d.BH+(t-d.BH)*dr;
+  const reach=loosed ? t : SET*(1-dr)+nock;
+  const B=K.B.copy(A).addScaledVector(a,reach);
+  const drop=loosed ? 0.10*(1-fol) : 0; B.y-=drop*0.4;
+  // bow arm: two-bone IK, elbow rolled down and out
+  const pB=K.P.copy(SR); pB.y-=0.4; pB.z-=0.15;
+  ikElbow(SR,B,pB,L1,L2,K.E); setArmIK(aR,SR,K.E,B,k);
+  // bow: limbs upright with a touch of cant, belly to the archer, aimed down the arrow
+  const Zb=K.Z.copy(a).normalize();
+  const Yb=K.Y.copy(K.up).addScaledVector(Zb,-K.up.dot(Zb)).normalize(); Yb.applyAxisAngle(Zb,0.10).normalize();
+  const Xb=K.X.copy(Yb).cross(Zb);
+  K.m.makeBasis(Xb,Yb,Zb); K.qb.setFromRotationMatrix(K.m);
+  if(drop>0){ K.qx.setFromAxisAngle(K.t1.set(1,0,0),drop*3.2); K.qb.multiply(K.qx); }
+  PLAYER.group.getWorldQuaternion(K.qp); bow.parent.getWorldQuaternion(K.qh);
+  K.q.copy(K.qh).invert().multiply(K.qp).multiply(K.qb);
+  bow.quaternion.slerp(K.q,Math.min(1,k*1.6));
+  // limbs flex, string bends through the nock, arrow sits on the string
+  bowShape(0.20*dr,nock);
+  const alen=Math.max(0.78,t+0.14), s=alen/0.68;
+  d.arrow.visible=!loosed;
+  d.arrow.scale.set(1,1,s); d.arrow.position.set(0,0.02,-nock+0.30*s);
+  // draw hand goes exactly where the string actually is (bow as the hand is carrying it now)
+  const T=K.T.set(0,0.02,-nock);
+  bow.getWorldQuaternion(K.qh); T.applyQuaternion(K.qh);
+  bow.getWorldPosition(K.w); T.add(K.w);
+  PLAYER.group.getWorldPosition(K.w); T.sub(K.w);
+  K.qx.copy(K.qp).invert(); T.applyQuaternion(K.qx);
+  if(loosed){ K.P.copy(A).addScaledVector(a,-0.17); K.P.y+=0.03; K.P.z-=0.06; T.copy(A).lerp(K.P,fol); }
+  // draw arm: elbow at arrow height, pulled out behind the back
+  const SL=aL.position, pole=K.P.copy(SL).addScaledVector(a,-0.5); pole.y+=0.10; pole.z-=1.0;
+  ikElbow(SL,T,pole,L1,L2,K.E); setArmIK(aL,SL,K.E,T,k);
+  if(PLAYER.head){
+    PLAYER.head.rotation.y=lerp(PLAYER.head.rotation.y,yaw,k);
+    PLAYER.head.rotation.x=lerp(PLAYER.head.rotation.x,0.06,k);
+    PLAYER.head.rotation.z=lerp(PLAYER.head.rotation.z||0,-0.06*dr,k);
   }
-  if(PLAYER.bow) PLAYER.bow.rotation.x=(BOWFX.s==='follow') ? -0.28*(1-BOWFX.t/0.26) : 0;
+}
+/* when not shooting, the bow settles back to a relaxed carry */
+function bowRest(k){
+  const bow=PLAYER.bow; if(!bow) return;
+  if(!bow.userData.detail && bow.visible) ensureBowDetail();
+  bow.quaternion.slerp(_ak().I,k);
+  const d=bow.userData.detail; if(d && !bowBusy()){ d.arrow.visible=false; }
 }
 
 
@@ -5955,6 +6098,163 @@ function townProverbResolve(id,k){
     '<div class="psub" style="color:var(--gold-bright)">'+tag+(tag&&mor?'  \u00b7  ':'')+mor+'</div>'+
     '<div style="margin-top:6px"><button class="btn" data-pback="1">Continue</button></div>');
   const bk=document.querySelector('[data-pback]'); if(bk) bk.onclick=function(){ renderTown(id); };
+}
+
+
+/* ===== CHARACTER & ENEMY GRAPHICS PASS (spliced) ===== */
+/* ===========================================================================
+   ALEBRIJE JOURNEY — CHARACTER & ENEMY GRAPHICS PASS
+   · Rim light: a fresnel edge-glow injected into each character's material
+     so silhouettes separate cleanly from the stage, tinted per role.
+   · Contact shadows: a soft ground blob under every character (stays on the
+     ground even when a wraith hovers, shrinking with height).
+   · Painted enemies: every stage's foes wear folk-art livery in that stage's
+     own hue, three deterministic variants, textures freed on stage exit.
+   · Textured beasts: werewolf / wodewose / yasquatch get fur-fleck maps.
+   · Joseph's tunic: an embroidered pattern that brightens toward cream as
+     he grows good and darkens toward blood-red as he falls.
+   · Hit reaction: squash-and-stretch against the creature's true scale.
+=========================================================================== */
+
+/* ---------- rim light ---------- */
+const RIM_OBC=function(shader){
+  const ud=this.userData;
+  shader.uniforms.rimColor={value:ud.rimColor};
+  shader.uniforms.rimStrength={value:ud.rimStrength};
+  shader.uniforms.rimPow={value:ud.rimPow};
+  shader.fragmentShader='uniform vec3 rimColor;\nuniform float rimStrength;\nuniform float rimPow;\n'+
+    shader.fragmentShader.replace('#include <emissivemap_fragment>',
+      '#include <emissivemap_fragment>\n'+
+      '{ float rimF = 1.0 - clamp(dot(normalize(normal), normalize(vViewPosition)), 0.0, 1.0);\n'+
+      '  totalEmissiveRadiance += rimColor * (pow(rimF, rimPow) * rimStrength); }');
+};
+let _rimSkip=null;
+function rimSkipSet(){
+  if(_rimSkip) return _rimSkip;
+  _rimSkip=new Set();
+  if(typeof MAT==='object') for(const k in MAT){ if(MAT[k]&&MAT[k].isMaterial) _rimSkip.add(MAT[k]); }
+  return _rimSkip;
+}
+function applyRim(m,color,strength,pw){
+  if(!m || !m.isMeshStandardMaterial || m.userData.rim) return;
+  if(rimSkipSet().has(m)) return;
+  if(typeof STAGE==='object' && STAGE.mats){ for(const k in STAGE.mats){ if(k.indexOf('ab')===0||k==='bossAccent') continue; if(STAGE.mats[k]===m) return; } }
+  m.userData.rim=true;
+  m.userData.rimColor=new THREE.Color(color);
+  m.userData.rimStrength=strength;
+  m.userData.rimPow=pw;
+  m.onBeforeCompile=RIM_OBC;
+  m.needsUpdate=true;
+}
+
+/* ---------- contact shadow blobs ---------- */
+let _blobGeo=null,_blobMat=null;
+function blobAssets(){
+  if(_blobGeo) return;
+  const cv=document.createElement('canvas'); cv.width=cv.height=64;
+  const c=cv.getContext('2d');
+  const gr=c.createRadialGradient(32,32,1,32,32,31);
+  gr.addColorStop(0,'rgba(0,0,0,0.66)'); gr.addColorStop(0.5,'rgba(0,0,0,0.34)'); gr.addColorStop(1,'rgba(0,0,0,0)');
+  c.fillStyle=gr; c.fillRect(0,0,64,64);
+  const t=new THREE.CanvasTexture(cv);
+  _blobMat=new THREE.MeshBasicMaterial({map:t,transparent:true,depthWrite:false,
+    polygonOffset:true,polygonOffsetFactor:-2,polygonOffsetUnits:-2});
+  _blobGeo=new THREE.PlaneGeometry(1,1); _blobGeo.rotateX(-Math.PI/2);
+}
+function attachBlob(g,r){
+  blobAssets();
+  const b=new THREE.Mesh(_blobGeo,_blobMat);
+  b.userData.isBlob=true; b.userData.d=r*2; b.renderOrder=-1;
+  b.castShadow=false; b.receiveShadow=false;
+  g.add(b); g.userData.blob=b;
+}
+function blobFollow(g){
+  const b=g.userData.blob; if(!b) return;
+  const sy=g.scale.y||1, sx=g.scale.x||1;
+  b.position.set(0,(0.03-g.position.y)/sy,0);
+  const hgt=Math.max(0,g.position.y), s=1/(1+hgt*0.35);
+  b.scale.set(b.userData.d*s,1,b.userData.d*s*(sx/(g.scale.z||sx)));
+}
+
+/* ---------- per-role look ---------- */
+const CHARFX={
+  enemy:{rim:0x9fd8ff,str:0.55,pw:2.4,blob:0.62},
+  boss: {rim:0xffc86a,str:0.75,pw:2.1,blob:0.78},
+  ally: {rim:0xd2a8ff,str:0.65,pw:2.2,blob:0.62},
+  player:{rim:0xffe2a8,str:0.50,pw:2.6,blob:0.55},
+  dog:  {rim:0xffd27a,str:0.55,pw:2.4,blob:0.52}
+};
+function charFxTag(g,kind){
+  if(!g || g.userData.fxKind) return;
+  const R=CHARFX[kind]; if(!R) return;
+  g.userData.fxKind=kind;
+  g.traverse(function(o){
+    if(!o.isMesh || !o.material || o.userData.isBlob) return;
+    const ms=Array.isArray(o.material)?o.material:[o.material];
+    for(const m of ms) applyRim(m,R.rim,R.str,R.pw);
+  });
+  attachBlob(g,R.blob);
+}
+function updateCharFx(){
+  if(typeof ENEMIES!=='undefined') for(const e of ENEMIES){ if(e.dead||!e.group) continue; charFxTag(e.group,'enemy'); blobFollow(e.group); }
+  if(RT.sboss&&RT.sboss.group){ charFxTag(RT.sboss.group,'boss'); blobFollow(RT.sboss.group); }
+  if(RT.boss&&RT.boss.group){ charFxTag(RT.boss.group,'boss'); blobFollow(RT.boss.group); }
+  if(typeof ALLY!=='undefined'&&ALLY&&ALLY.group){ charFxTag(ALLY.group,'ally'); blobFollow(ALLY.group); }
+  if(PLAYER.group){ charFxTag(PLAYER.group,'player'); blobFollow(PLAYER.group); }
+  if(DOG.group){ charFxTag(DOG.group,'dog'); blobFollow(DOG.group); }
+}
+
+/* ---------- painted enemy livery (per stage, deterministic, disposable) ---------- */
+function paintedVariantSet(num,v){
+  const sr=function(k){ const x=Math.sin(num*12.9898+v*78.233+k*37.719)*43758.5453; return x-Math.floor(x); };
+  const dh=(sr(1)-0.5)*0.12, dl=(sr(2)-0.5)*0.18, ds=(sr(3)-0.5)*0.12;
+  const pal=(typeof alebrijePalette==='function')?alebrijePalette(num*11+v*3+5):[0xff2d95,0x00e5ff,0xffea00,0x76ff03];
+  const W=0xfff6da;
+  const plan={ body:['dots',pal[0],W,0.20], body2:['zig',pal[1],W,0.18],
+               metal:['diamond',pal[2],W,0.22], accent:['scales',pal[3],pal[0],0.34] };
+  const vm={eye:MAT.soul}, tex=[];
+  for(const k of ['ghost','body','body2','metal','accent']){
+    const src=STAGE.mats[k]; if(!src) continue;
+    const c=src.clone(); if(c.color) c.color.offsetHSL(dh,ds,dl);
+    const p=plan[k];
+    if(p && typeof aleTex==='function' && c.color){
+      const t=aleTex(p[0],'#'+c.color.getHexString(),_cssc(p[1]),_cssc(p[2]),2,true);
+      tex.push(t);
+      c.map=t; c.color.setHex(0xffffff);
+      c.emissive=new THREE.Color(0xffffff); c.emissiveMap=t; c.emissiveIntensity=p[3];
+      c.needsUpdate=true;
+    }
+    vm[k]=c;
+  }
+  vm._tex=tex;
+  return vm;
+}
+
+/* ---------- beasts: fur-fleck maps in their natural tones ---------- */
+function paintBeastMats(B){
+  if(!B || B._painted || typeof aleTex!=='function') return;
+  const fur=function(m,base,light,dark){
+    if(!m) return;
+    m.map=aleTex('dapple',_cssc(base),_cssc(light),_cssc(dark),2);
+    m.color.setHex(0xffffff); m.needsUpdate=true;
+  };
+  fur(B.fur,  0x5a4030,0x8a6a4a,0x2a1a10);
+  fur(B.fur2, 0x3a2818,0x6a4a2e,0x1a0e06);
+  fur(B.mane, 0x241608,0x4a3018,0x0a0602);
+  fur(B.bfur, 0x6a4a2a,0x9a7a4a,0x3a2410);
+  fur(B.bfur2,0x4a3018,0x7a5a34,0x241408);
+  fur(B.yfur, 0xe8f0f4,0xffffff,0xb8d0e0);
+  fur(B.yfur2,0xc2d6e2,0xe8f4ff,0x90b0c8);
+  B._painted=true;
+}
+
+/* ---------- Joseph's embroidered tunic ---------- */
+function paintHeroTunic(){
+  const m=PLAYER.mats&&PLAYER.mats.body;
+  if(!m || m.userData.tunic || typeof aleTex!=='function') return;
+  const t=aleTex('zig','#f3e6c8','#c8341e','#1f6ad0',2);
+  m.map=t; m.emissive=new THREE.Color(0xffffff); m.emissiveMap=t; m.emissiveIntensity=0.10;
+  m.userData.tunic=true; m.needsUpdate=true;
 }
 
 </script>
